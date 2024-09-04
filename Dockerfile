@@ -15,7 +15,9 @@ COPY ./public ./public
 COPY tsconfig.json ./
 COPY tailwind.config.js ./
 COPY components.json ./
-COPY .env ./
+ENV REACT_APP_REDIRECT_URI=http://namth.muotacademy.com:3000
+ENV REACT_APP_API_URL=http://namth.muotacademy.com:1337
+
 
 # Build the React app for production
 RUN npm run build
