@@ -66,7 +66,7 @@ const ProductDetails: React.FC = () => {
             {thumbnails.map((thumbnail) => (
               <img
                 key={thumbnail}
-                src={`http://localhost:1337${thumbnail}`}
+                src={`${process.env.REACT_APP_API_URL}${thumbnail}`}
                 alt={product.attributes.name}
                 className="w-full h-full object-contain"
               />

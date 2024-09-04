@@ -15,8 +15,12 @@ COPY ./public ./public
 COPY tsconfig.json ./
 COPY tailwind.config.js ./
 COPY components.json ./
+COPY .env ./
 
 # Build the React app for production
 RUN npm run build
-EXPOSE 3000
-CMD ["npx", "serve", "-s", "build", "-l", "3000"]
+
+# Use Nginx as the production server
+FROM nginxinc/nginx-unprivileged:stable-alpine3.19-slim
+COPY --from=build --chown=101:101 /app/build /usr/share/nginx/html
+COPY ./rootfs /
