@@ -11,7 +11,7 @@ function Home() {
           navigate("/product-list/iPad");
         }}
       >
-        hihihi
+        hihihihi
       </button>
     </div>
   );
