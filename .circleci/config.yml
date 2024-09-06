@@ -6,6 +6,7 @@ orbs:
 
 jobs:
   build-and-push:
+    context: fs
     environment:
       DOCKER_IMAGE: commerce
       DOCKER_TAG: latest
@@ -28,6 +29,7 @@ jobs:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
   deploy:
+    context: fs
     executor: docker/docker
     steps:
       - add_ssh_keys:
