@@ -20,7 +20,7 @@ export const Header = () => {
     navigate("/");
   };
   return (
-    <Navbar fluid rounded>
+    <Navbar className="sticky top-0 w-full bg-white z-50" fluid>
       <Navbar.Brand href="/">
         <img
           src="/favicon.ico"

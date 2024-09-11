@@ -82,5 +82,19 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("flowbite/plugin")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("flowbite/plugin"),
+    require("daisyui"),
+    function ({ addUtilities }) {
+      addUtilities(
+        {
+          ".mt-0-important": {
+            marginTop: "0px !important",
+          },
+        },
+        ["responsive", "hover"]
+      );
+    },
+  ],
 };

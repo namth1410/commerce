@@ -16,24 +16,6 @@ const initialState: ProductsState = {
   pagination: null,
 };
 
-export const getProducts = createAsyncThunk(
-  "products/getProducts",
-  async ({
-    productType,
-    page,
-    sortBy,
-  }: {
-    productType: string;
-    page: number;
-    sortBy: string;
-  }) => {
-    const response = await axiosInstance.get(
-      `/products?populate=images&pagination[page]=${page}&pagination[pageSize]=${PAGE_SIZE}&filters[type][$eqi]=${productType}&sort[0]=${sortBy}`
-    );
-    return response.data;
-  }
-);
-
 const productsSlice = createSlice({
   name: "products",
   initialState,
@@ -56,5 +38,23 @@ const productsSlice = createSlice({
       });
   },
 });
+
+export const getProducts = createAsyncThunk(
+  "products/getProducts",
+  async ({
+    productType,
+    page,
+    sortBy,
+  }: {
+    productType: string;
+    page: number;
+    sortBy: string;
+  }) => {
+    const response = await axiosInstance.get(
+      `/products?populate=images&pagination[page]=${page}&pagination[pageSize]=${PAGE_SIZE}&filters[type][$eqi]=${productType}&sort[0]=${sortBy}`
+    );
+    return response.data;
+  }
+);
 
 export default productsSlice.reducer;
