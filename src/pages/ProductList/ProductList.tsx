@@ -90,8 +90,6 @@ function Iphone() {
                 id={product.id}
                 name={product.attributes.name}
                 currentPrice={product.attributes.price}
-                oldPrice={product.attributes.price}
-                discount={20}
               />
             ))}
       </div>

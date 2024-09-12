@@ -1,8 +1,7 @@
 import { Product } from "@/models/product.model";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import ProductCard from "../../components/ProductCard";
 import axiosInstance from "../../lib/api";
-import { generateSlug } from "../../lib/utils";
 
 type ItemBoxListProps = {
   name: string;
@@ -10,11 +9,7 @@ type ItemBoxListProps = {
   link: string;
 };
 
-const CATEGORIES = ["iPhone", "iPad"];
-
 function Home() {
-  const navigate = useNavigate();
-
   const [iPhoneList, setIPhoneList] = useState(null);
   const [iPadList, setIPadList] = useState(null);
 
@@ -46,7 +41,8 @@ function Home() {
 
   useEffect(() => {
     startSlideShow();
-    return () => pauseSlideShow(); // Dừng interval khi component bị unmount
+    return () => pauseSlideShow();
+    // eslint-disable-next-line
   }, [images.length]);
 
   const handlePrev = () => {
@@ -84,7 +80,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="dark:bg-slate-400 bg-[#f5f5f7]">
+    <div className="dark:bg-slate-400">
       <div className="w-full dark:bg-gray-800">
         <div className="carousel relative">
           {images.map((image, index) => (
@@ -117,19 +113,21 @@ function Home() {
           </button>
         </div>
 
-        <ItemBoxList
-          name="iPhone"
-          data={iPhoneList}
-          link="/product-list/iPhone"
-        ></ItemBoxList>
+        <div className="mx-auto max-w-[1200px]">
+          <ItemBoxList
+            name="iPhone"
+            data={iPhoneList}
+            link="/product-list/iPhone"
+          ></ItemBoxList>
 
-        <ItemBoxList
-          name="iPad"
-          data={iPadList}
-          link="/product-list/iPad"
-        ></ItemBoxList>
+          <ItemBoxList
+            name="iPad"
+            data={iPadList}
+            link="/product-list/iPad"
+          ></ItemBoxList>
+        </div>
 
-        <div className="footer_newletter bg-gray-200 w-full mx-auto py-12">
+        <div className="footer_newletter bg-gray-200 w-full mx-auto py-12 mt-5">
           <div className="heading_newletter text-center font-bold text-2xl text-gray-900 leading-9">
             Đăng ký nhận tin từ ShopDunk
           </div>
@@ -172,44 +170,24 @@ const ItemBoxList: React.FC<ItemBoxListProps> = ({ name, data, link }) => {
   return (
     <div className="item-box-list pt-10">
       <div className="category-item">
-        <h2 className="title font-bold text-[30px] leading-[45px] text-[#1D1D1F] pb-6 mb-5 text-center">
+        <h2 className="title font-bold text-[30px] leading-[45px] pb-6 mb-5 text-center">
           {name}
         </h2>
 
         <div className="page category-page grid grid-cols-4 gap-5 mb-3 auto-rows-[minmax(min-content,_max-content)]">
           {data.map((product, index) => {
-            const imageUrl =
-              `${process.env.REACT_APP_API_URL}${product.attributes.images?.data?.[0]?.attributes.url}` ||
-              ""; // Kiểm tra an toàn
             return (
-              <div
-                className="item-box bg-white shadow-[0_1px_8px_rgba(0,0,0,0.04)] rounded-lg p-6 pb-4 px-5"
-                key={index}
-              >
-                <div className="product_tag"></div>
-                <div className="picture mb-5">
-                  <a
-                    href={`/product-details/${product.id}/${generateSlug(
-                      product.attributes.name
-                    )}`}
-                  >
-                    <img src={imageUrl} alt={product.attributes.name} />
-                  </a>
-                </div>
-                <div className="details">
-                  <div className="product-title font-bold text-[18px] leading-[27px] text-[#1D1D1F] min-h-[54px]">
-                    {product.attributes.name}
-                  </div>
-                  <div className="add-info">
-                    <div className="price font-bold text-[16px] leading-[24px] text-[#0066CC]">
-                      {new Intl.NumberFormat("vi-VN", {
-                        style: "currency",
-                        currency: "VND",
-                      }).format(parseFloat(product.attributes.price))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ProductCard
+                key={product.id}
+                image={
+                  product.attributes.images.data?.[0].attributes.url
+                    ? `${process.env.REACT_APP_API_URL}${product.attributes.images.data?.[0].attributes.url}`
+                    : "/logo512.png"
+                }
+                id={product.id}
+                name={product.attributes.name}
+                currentPrice={product.attributes.price}
+              />
             );
           })}
         </div>

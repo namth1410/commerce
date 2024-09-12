@@ -68,7 +68,7 @@ function Search() {
   }, [q, dispatch, currentPage, sortBy]);
 
   return (
-    <div className="bg-[#f5f5f7] pt-4 pb-5">
+    <div className="pt-4 pb-5">
       <div className="max-w-[1000px] m-auto">
         <div className="search-input bg-white rounded-lg py-2 px-4 mb-6 border-none">
           <form onSubmit={handleSubmit}>
@@ -142,8 +142,6 @@ function Search() {
                   id={product.id}
                   name={product.attributes.name}
                   currentPrice={product.attributes.price}
-                  oldPrice={product.attributes.price}
-                  discount={20}
                 />
               ))}
         </div>

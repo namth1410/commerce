@@ -10,7 +10,9 @@ function MasterLayout() {
       }}
     >
       <Header></Header>
-      <Outlet />
+      <div className="bg-[#f5f5f7]">
+        <Outlet />
+      </div>
       <Footer></Footer>
     </div>
   );
