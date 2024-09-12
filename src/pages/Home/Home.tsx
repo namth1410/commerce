@@ -2,7 +2,7 @@ import { Product } from "@/models/product.model";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../lib/api";
-import Footer from "../../components/Footer";
+import { generateSlug } from "../../lib/utils";
 
 type ItemBoxListProps = {
   name: string;
@@ -161,16 +161,12 @@ function Home() {
             </div>
           </div>
         </div>
-
-        <Footer></Footer>
       </div>
     </div>
   );
 }
 
 const ItemBoxList: React.FC<ItemBoxListProps> = ({ name, data, link }) => {
-  console.log(data);
-
   if (!data) return <></>;
 
   return (
@@ -192,7 +188,11 @@ const ItemBoxList: React.FC<ItemBoxListProps> = ({ name, data, link }) => {
               >
                 <div className="product_tag"></div>
                 <div className="picture mb-5">
-                  <a href="/">
+                  <a
+                    href={`/product-details/${product.id}/${generateSlug(
+                      product.attributes.name
+                    )}`}
+                  >
                     <img src={imageUrl} alt={product.attributes.name} />
                   </a>
                 </div>

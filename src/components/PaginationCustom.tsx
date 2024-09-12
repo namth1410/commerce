@@ -10,7 +10,7 @@ import {
 } from "./ui/pagination";
 
 interface PaginationCustomProps {
-  pagination: PaginationInfo;
+  pagination: PaginationInfo | null;
   onPageChange: (page: number) => void;
 }
 
@@ -18,6 +18,7 @@ export const PaginationCustom: React.FC<PaginationCustomProps> = ({
   pagination,
   onPageChange,
 }) => {
+  if (!pagination) return null;
   const { page, pageCount } = pagination;
 
   const handlePageChange = (newPage: number) => {

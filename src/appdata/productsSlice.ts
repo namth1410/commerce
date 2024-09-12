@@ -6,14 +6,18 @@ import { Product } from "../models/product.model";
 
 interface ProductsState {
   products: Product[];
+  productsSearch: Product[];
   status: "idle" | "loading" | "failed";
   pagination: PaginationInfo | null;
+  paginationSearch: PaginationInfo | null;
 }
 
 const initialState: ProductsState = {
   products: [],
   status: "idle",
   pagination: null,
+  productsSearch: [],
+  paginationSearch: null,
 };
 
 const productsSlice = createSlice({
@@ -35,6 +39,20 @@ const productsSlice = createSlice({
       })
       .addCase(getProducts.rejected, (state) => {
         state.status = "failed";
+      })
+      .addCase(searchProduct.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(searchProduct.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.productsSearch = action.payload.data;
+        const _pagination = action.payload.meta.pagination;
+        if (_pagination.total !== 0) {
+          state.paginationSearch = action.payload.meta.pagination;
+        }
+      })
+      .addCase(searchProduct.rejected, (state) => {
+        state.status = "failed";
       });
   },
 });
@@ -52,6 +70,24 @@ export const getProducts = createAsyncThunk(
   }) => {
     const response = await axiosInstance.get(
       `/products?populate=images&pagination[page]=${page}&pagination[pageSize]=${PAGE_SIZE}&filters[type][$eqi]=${productType}&sort[0]=${sortBy}`
+    );
+    return response.data;
+  }
+);
+
+export const searchProduct = createAsyncThunk(
+  "products/searchProduct",
+  async ({
+    name,
+    page,
+    sortBy,
+  }: {
+    name: string;
+    page: number;
+    sortBy: string;
+  }) => {
+    const response = await axiosInstance.get(
+      `/products?populate=images&pagination[page]=${page}&pagination[pageSize]=${PAGE_SIZE}&filters[name][$containsi]=${name}&sort[0]=${sortBy}`
     );
     return response.data;
   }

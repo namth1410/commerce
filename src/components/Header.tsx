@@ -4,10 +4,13 @@ import {
   DarkThemeToggle,
   Dropdown,
   Navbar,
+  Popover,
 } from "flowbite-react";
+import { CiSearch } from "react-icons/ci";
 import { useLocation, useNavigate } from "react-router-dom";
 import { clearUser } from "../appdata/myselfSlice";
 import { useAppDispatch } from "../appdata/store";
+import { useState } from "react";
 
 export const Header = () => {
   const location = useLocation();
@@ -15,21 +18,28 @@ export const Header = () => {
   const navigate = useNavigate();
   const needLogin = !localStorage.getItem("token");
 
+  const [query, setQuery] = useState("");
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      // navigate(`/search?q=${query}`);
+      window.location.href = `${process.env.REACT_APP_REDIRECT_URI}/search?q=${query}`;
+    }
+  };
+
   const handleLogout = () => {
     dispatch(clearUser());
     navigate("/");
   };
   return (
-    <Navbar className="sticky top-0 w-full bg-white z-50" fluid>
+    <Navbar className="sticky top-0 w-full bg-white z-50 shadow-lg" fluid>
       <Navbar.Brand href="/">
         <img
-          src="/favicon.ico"
+          src="https://hoanghamobile.com/Content/web/img/logo-text.png"
           className="mr-3 h-6 sm:h-9"
           alt="Flowbite React Logo"
         />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          Flowbite
-        </span>
       </Navbar.Brand>
 
       <Navbar.Collapse>
@@ -67,6 +77,41 @@ export const Header = () => {
       </Button> */}
 
       <div className="flex items-center space-x-4">
+        <Popover
+          aria-labelledby="default-popover"
+          content={
+            <div className="w-64 p-4 text-sm text-gray-500 dark:text-gray-400">
+              <div className="border-b border-gray-200  px-3 py-2 dark:border-gray-600 dark:bg-gray-700">
+                <h3
+                  id="default-popover"
+                  className="font-semibold text-gray-900 dark:text-white"
+                >
+                  Tìm kiếm thứ bạn muốn
+                </h3>
+              </div>
+              <div className="px-3 py-2">
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={handleSearch}
+                  placeholder="Nhập tên sản phẩm"
+                  className="w-full p-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+            </div>
+          }
+        >
+          <Button
+            outline
+            gradientDuoTone="purpleToBlue"
+            className="focus:[box-shadow:none]"
+          >
+            <CiSearch className="mr-2 h-5 w-5" />
+            Tìm kiếm
+          </Button>
+        </Popover>
+
         <DarkThemeToggle className="focus:ring-0 rounded-full bg-neutral-300 dark:border-l-indigo-100" />
 
         {/* <Button

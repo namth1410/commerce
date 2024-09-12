@@ -15,7 +15,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="topic-block">
-            <p className="text-sm font-normal leading-6 text-gray-400 py-2">
+            <p className="text-sm text-justify font-normal leading-6 text-gray-400 py-2">
               Năm 2020, ShopDunk trở thành đại lý ủy quyền của Apple. Chúng tôi
               phát triển chuỗi cửa hàng tiêu chuẩn và Apple Mono Store nhằm mang
               đến trải nghiệm tốt nhất về sản phẩm và dịch vụ của Apple cho
@@ -23,11 +23,11 @@ const Footer = () => {
             </p>
             <div className="border border-[#cccccc] mx-auto bg-[#ecf0f1] rounded-[10px] max-w-full">
               <p className="text-left p-[8px] my-[10px] underline">
-                <strong>Tổng đài hỗ trợ :</strong>
+                <strong className="text-black">Tổng đài hỗ trợ :</strong>
               </p>
               <p className="my-[10px]">
                 <a href="tel:19006626">
-                  <strong>
+                  <strong className="text-black">
                     Mua hàng:{" "}
                     <span className="text-blue-700 text-[18px]">
                       1900.6626 (08:00 - 22:00)
@@ -37,7 +37,7 @@ const Footer = () => {
               </p>
               <p className="my-[10px]">
                 <a href="tel:19008036">
-                  <strong>
+                  <strong className="text-black">
                     Bảo hành:{" "}
                     <span className="text-blue-700 text-[18px]">
                       1900.8036 (08:00 - 22:00)
@@ -49,7 +49,7 @@ const Footer = () => {
           </div>
           {/* Social Media Section */}
           <div className="social mt-8 md:mt-0">
-            <div className="title font-bold text-xl mb-4">Theo chúng tôi</div>
+            <div className="title font-bold text-xl mb-4"> </div>
             <ul className="flex space-x-4">
               <li className="facebook">
                 <a

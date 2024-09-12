@@ -3,6 +3,7 @@ import MasterLayout from "../layouts/MasterLayout";
 import Home from "../pages/Home/Home";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import ProductList from "../pages/ProductList/ProductList";
+import Search from "../pages/Search/Search";
 
 function Main() {
   return (
@@ -12,6 +13,7 @@ function Main() {
         <Route path="/home" element={<Home />} />
         <Route path="/product-list/:productType" element={<ProductList />} />
         <Route path="/product-details/:id/:slug" element={<ProductDetails />} />
+        <Route path="/search" element={<Search />} />
 
         <Route path="*" element={<Navigate to="/home" />} />
       </Route>

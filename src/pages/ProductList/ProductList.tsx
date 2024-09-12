@@ -66,7 +66,7 @@ function Iphone() {
         </Select>
       </div>
 
-      <div className="grid grid-cols-4 gap-6 auto-rows-min sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-4 auto-rows-[minmax(min-content,max-content)] gap-5 mb-4">
         {status === "loading"
           ? Array(4)
               .fill(0)

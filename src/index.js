@@ -6,12 +6,14 @@ import "./index.css";
 import { setupAxios } from "./lib/api";
 import reportWebVitals from "./reportWebVitals";
 import "./styles/globals.css";
+import FloatingSocialIcon from "./components/FloatingSocialIcons"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 setupAxios();
 root.render(
   <BrowserRouter>
     <App />
+    <FloatingSocialIcon></FloatingSocialIcon>
   </BrowserRouter>
 );
 

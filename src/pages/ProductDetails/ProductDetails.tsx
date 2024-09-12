@@ -58,7 +58,7 @@ const ProductDetails: React.FC = () => {
       <div className="flex flex-col lg:flex-row">
         <div className="lg:w-1/2 flex flex-col items-center shadow-lg border border-gray-300 rounded-lg p-4">
           <Carousel
-            slideInterval={1000}
+            slideInterval={3000}
             leftControl={<CustomLeftControl />}
             rightControl={<CustomRightControl />}
             className="h-50vh lg:h-full"
